@@ -1,0 +1,17 @@
+{
+    "model1": {
+        "Max_accuracy": "0.87643 +- 0.00383",
+        "Min_loss": "189.34407 +- 189.34407",
+        "Max_complexity": "0.78381 +- 0.00944"
+    },
+    "model2 (complexity)": {
+        "Max_accuracy": "0.94779 +- 0.00277",
+        "Min_loss": "6389.96675 +- 6389.96675",
+        "Max_complexity": "0.77095 +- 0.02234"
+    },
+    "model3 (loss)": {
+        "Max_accuracy": "0.96227 +- 0.00370",
+        "Min_loss": "6343.51523 +- 6343.51523",
+        "Max_complexity": "0.78212 +- 0.00000"
+    }
+}
