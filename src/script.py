@@ -31,9 +31,9 @@ all_metrics={}
 output_file = 'results/metrics/all_metrics.json'
 
 while iteration <= max_iteration:
-    run_script('src/model1.py')
-    run_script('src/model2.py')
-    run_script('src/model3.py')
+    run_script('/home/users/u12559743/Documentos/complexity_antiga/Complexity/src/model1.py')
+    run_script('/home/users/u12559743/Documentos/complexity_antiga/Complexity/src/model2.py')
+    run_script('/home/users/u12559743/Documentos/complexity_antiga/Complexity/src/model3.py')
 
 
     metrics_file_1 = 'results/metrics/metrics_model1.json'
@@ -47,8 +47,8 @@ while iteration <= max_iteration:
     if metrics1 and metrics2 and metrics3:
         all_metrics[f'{iteration}'] = {
             'model1' : metrics1,
-            'model2 (complexity)' : metrics2,
-            'model3 (loss)' : metrics3
+            'model2 (loss)' : metrics2,
+            'model3 (complexity)' : metrics3
         }
         with open(output_file, 'w') as file:
             json.dump(all_metrics, file, indent=4)
@@ -63,14 +63,14 @@ with open('results/metrics/all_metrics.json', 'r') as file:
     data = json.load(file)
 
 
-sum_accuracy = {'model1': 0, 'model2 (complexity)': 0, 'model3 (loss)': 0}
-sum_loss = {'model1': 0, 'model2 (complexity)': 0, 'model3 (loss)': 0}
-sum_complexity = {'model1': 0, 'model2 (complexity)': 0, 'model3 (loss)': 0}
+sum_accuracy = {'model1': 0, 'model2 (loss)': 0, 'model3 (complexity)': 0}
+sum_loss = {'model1': 0, 'model2 (loss)': 0, 'model3 (complexity)': 0}
+sum_complexity = {'model1': 0, 'model2 (loss)': 0, 'model3 (complexity)': 0}
 num_rounds = len(data)
 
 
 for round_data in data.values():
-    for model in ['model1', 'model2 (complexity)', 'model3 (loss)']:
+    for model in ['model1', 'model2 (complexity)', 'model3 (complexity)']:
         sum_accuracy[model] += round_data[model]['Max_accuracy']
         sum_loss[model] += round_data[model]['Min_loss']
         sum_complexity[model] += round_data[model]['Max_complexity']
@@ -80,12 +80,12 @@ avg_loss = {model: sum_loss[model]/num_rounds for model in sum_loss}
 avg_complexity = {model: sum_complexity[model]/num_rounds for model in sum_complexity}
 
 
-sum_sq_accuracy = {'model1': 0, 'model2 (complexity)': 0, 'model3 (loss)': 0}
-sum_sq_loss = {'model1': 0, 'model2 (complexity)': 0, 'model3 (loss)': 0}
-sum_sq_complexity = {'model1': 0, 'model2 (complexity)': 0, 'model3 (loss)': 0}
+sum_sq_accuracy = {'model1': 0, 'model2 (loss)': 0, 'model3 (complexity)': 0}
+sum_sq_loss = {'model1': 0, 'model2 (loss)': 0, 'model3 (complexity)': 0}
+sum_sq_complexity = {'model1': 0, 'model2 (loss)': 0, 'model3 (complexity)': 0}
 
 for round_data in data.values():
-    for model in ['model1', 'model2 (complexity)', 'model3 (loss)']:
+    for model in ['model1', 'model2 (loss)', 'model3 (complexity)']:
         sum_sq_accuracy[model] += (round_data[model].get('Max_accuracy', 0) - avg_accuracy[model])**2
         sum_sq_loss[model] += (round_data[model].get('Max_loss', 0) - avg_loss[model])**2
         sum_sq_complexity[model] += (round_data[model].get('Max_complexity', 0) - avg_complexity[model])**2
@@ -96,7 +96,7 @@ std_dev_complexity = {model: math.sqrt(sum_sq_complexity[model]/num_rounds) for 
 
 results = {}
 
-for model in ['model1', 'model2 (complexity)', 'model3 (loss)']:
+for model in ['model1', 'model2 (loss)', 'model3 (complexity)']:
     results[model] = {
         'Max_accuracy': f"{avg_accuracy[model]:.5f} +- {std_dev_accuracy[model]:.5f}",
         'Min_loss': f"{avg_loss[model]:.5f} +- {std_dev_loss[model]:.5f}",
